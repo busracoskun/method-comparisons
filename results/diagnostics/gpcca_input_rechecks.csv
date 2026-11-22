@@ -1,0 +1,6 @@
+"input","modality","n","features","zero_variance","minimum_sd","duplicate_columns","exact_duplicate_pairs","abs_r_ge_095","abs_r_ge_099","abs_r_ge_0999","nonduplicate_abs_r_ge_099","nonduplicate_abs_r_ge_0999","max_nonduplicate_abs_r","max_nonduplicate_pair1","max_nonduplicate_pair2","covariance_rank_relative_1e10","smallest_eigenvalue","largest_eigenvalue"
+"X_cc","mrna",465,324,0,0.686519916431172,0,0,0,0,0,0,0,0.948773136073349,"NACAP1","EEF1A1P9",324,0.00170088749770478,133.328224339072
+"X_cc","methylation",465,324,0,0.81038641272257,1,1,40,3,1,2,0,0.997257954243764,"CBLN3","KHNYN",323,6.33190772611469e-17,217.221976406619
+"X_cc","rppa",465,112,0,0.677928684739054,0,0,0,0,0,0,0,0.810468001765842,"RBM15","XRCC5",112,0.0240157820008556,12.3091242331939
+"X_cc_sf","mrna",465,202,0,0.686519916431172,0,0,0,0,0,0,0,0.948773136073349,"NACAP1","EEF1A1P9",202,0.00518732720823601,85.8473955245124
+"X_cc_sf","methylation",465,304,0,0.81038641272257,1,1,40,3,1,2,0,0.997257954243764,"KHNYN","CBLN3",303,5.32479619142523e-17,205.149451311359

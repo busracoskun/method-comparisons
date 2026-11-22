@@ -1,0 +1,33 @@
+ecosystem,package,version,source_sha,scope
+R,missForest,1.6.1,,locally installed validation snapshot; not a complete historical fitting lock
+R,SIS,1.5,,locally installed validation snapshot; not a complete historical fitting lock
+R,Matrix,1.7-6,,locally installed validation snapshot; not a complete historical fitting lock
+R,GPCCA,1.0,15440a920d6eaef1b921da131a8f4a623a849cb9,locally installed validation snapshot; not a complete historical fitting lock
+R,IntNMF,1.3.0,,locally installed validation snapshot; not a complete historical fitting lock
+R,GFA,1.0.5,,locally installed validation snapshot; not a complete historical fitting lock
+R,RGCCA,3.0.3,,locally installed validation snapshot; not a complete historical fitting lock
+R,mixOmics,6.34.0,,locally installed validation snapshot; not a complete historical fitting lock
+R,iClusterPlus,1.46.0,,locally installed validation snapshot; not a complete historical fitting lock
+R,fabia,2.56.0,,locally installed validation snapshot; not a complete historical fitting lock
+R,omicade4,1.50.0,,locally installed validation snapshot; not a complete historical fitting lock
+R,OmicsPLS,2.1.0,,locally installed validation snapshot; not a complete historical fitting lock
+R,ade4,1.7-23,,locally installed validation snapshot; not a complete historical fitting lock
+R,tensorICA,1.0.0,9dba7286c4e3ad4a830e3ffc7471a75ec42929d6,locally installed validation snapshot; not a complete historical fitting lock
+R,SLIDE,1.0,a1077660f08a2ffb84ce8a4e26a7ca043a32cdca,locally installed validation snapshot; not a complete historical fitting lock
+R,r.jive,2.4,,locally installed validation snapshot; not a complete historical fitting lock
+R,BSFP,0.1.0,f63a7a797bc45af4dfd51f128742afe1b26d6c80,locally installed validation snapshot; not a complete historical fitting lock
+R,NEMO,0.1.0,451052feb98cd58dcc7e3db2171217a95066fb69,locally installed validation snapshot; not a complete historical fitting lock
+R,SNFtool,2.3.1,,locally installed validation snapshot; not a complete historical fitting lock
+R,FactoMineR,2.13,,locally installed validation snapshot; not a complete historical fitting lock
+R,T4transport,0.1.8,,locally installed validation snapshot; not a complete historical fitting lock
+R,dplyr,1.2.1,,locally installed validation snapshot; not a complete historical fitting lock
+R,ranger,0.17.0,,locally installed validation snapshot; not a complete historical fitting lock
+R,rsvd,1.0.5,,locally installed validation snapshot; not a complete historical fitting lock
+R,uwot,0.2.4,,locally installed validation snapshot; not a complete historical fitting lock
+R,jsonlite,2.0.0,,locally installed validation snapshot; not a complete historical fitting lock
+Python,numpy,2.5.1,,current publication-tools environment; not historical fitting provenance
+Python,pandas,3.0.5,,current publication-tools environment; not historical fitting provenance
+Python,matplotlib,3.11.1,,current publication-tools environment; not historical fitting provenance
+Python,scipy,1.18.0,,current publication-tools environment; not historical fitting provenance
+Python,Pillow,10.3.0,,current publication-tools environment; not historical fitting provenance
+Python,openpyxl,3.1.3,,current publication-tools environment; not historical fitting provenance

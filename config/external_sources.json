@@ -1,0 +1,30 @@
+[
+  {
+    "method": "gipca",
+    "file": "external_sources/gipca/Functions/GIPCA.R",
+    "url": "https://raw.githubusercontent.com/zhuhuichenecho/GeneralizedIntegrativePCA/aaed8e39b20cae47bd03d1e5393d5e9782c7dca5/Functions/GIPCA.R",
+    "sha256": "aec3e8140cfb804f11fc98d09b96895334d4050506f2cee649003ce0fdf24b96",
+    "historical_source_status": "historical loader unpinned; snapshot not independently certified"
+  },
+  {
+    "method": "gipca",
+    "file": "external_sources/gipca/Functions/IRLSrelatedFunctions.R",
+    "url": "https://raw.githubusercontent.com/zhuhuichenecho/GeneralizedIntegrativePCA/aaed8e39b20cae47bd03d1e5393d5e9782c7dca5/Functions/IRLSrelatedFunctions.R",
+    "sha256": "a4921e4ff7bee21534c5caf761cd5c003ddeb8ba72c44f0cc04de1047d6e9b7a",
+    "historical_source_status": "historical loader unpinned; snapshot not independently certified"
+  },
+  {
+    "method": "gipca",
+    "file": "external_sources/gipca/Functions/stepwiseBIC.R",
+    "url": "https://raw.githubusercontent.com/zhuhuichenecho/GeneralizedIntegrativePCA/aaed8e39b20cae47bd03d1e5393d5e9782c7dca5/Functions/stepwiseBIC.R",
+    "sha256": "6242628c134dc4c45f037aabc68c66b78b861ba4e2ab4579bb0173f9357a5da0",
+    "historical_source_status": "historical loader unpinned; snapshot not independently certified"
+  },
+  {
+    "method": "bidifac",
+    "file": "external_sources/bidifac/BIDIFAC.R",
+    "url": "https://raw.githubusercontent.com/lockEF/bidifac/80be783f1a700c6d04ebc95ebeaa2cbf60dc4f96/BIDIFAC.R",
+    "sha256": "f1ae6427847c6e83786fee15a3639a200fbada3ef23f56c423d3e8aacd2341f7",
+    "historical_source_status": "byte identical to historical vendor source"
+  }
+]

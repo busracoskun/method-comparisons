@@ -1,0 +1,4 @@
+strategy,provenance,bootstrap_records,modality,minimum,median,maximum,zero_selected,zero_percent
+CC_SF,previously saved reconstructed screens,1000,mrna,182,209.0,260,0,0.0
+CC_SF,previously saved reconstructed screens,1000,methylation,246,297.0,323,0,0.0
+CC_SF,previously saved reconstructed screens,1000,rppa,0,0.0,5,838,83.8

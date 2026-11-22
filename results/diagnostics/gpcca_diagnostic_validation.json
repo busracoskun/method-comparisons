@@ -1,0 +1,14 @@
+{
+  "historical_GPCCA_CCSF_records": 1000,
+  "all_historical_records_failed": true,
+  "historical_error_signatures": [
+    "LU factorization of .gCMatrix failed: out of memory or near-singular"
+  ],
+  "full_cohort_checks_match_saved_covariance_diagnostics": true,
+  "selected_methylation_duplicate_pairs": 1,
+  "selected_methylation_zero_variance_features": 0,
+  "new_model_fits": 0,
+  "new_bootstrap_runs": 0,
+  "new_screening_runs": 0,
+  "preprocessing_modified": false
+}

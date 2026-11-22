@@ -1,0 +1,31 @@
+"boot","policy","modality","patients","unique_patients","features","max_centered_rank","covariance_rank_relative_1e10","smallest_eigenvalue","largest_eigenvalue","positive_definite_relative_1e10","Matrix_solve","inverse_relative_residual"
+0,"original","mrna",465,465,202,202,202,0.00518732720823601,85.8473955245124,TRUE,"returned_inverse",1.53628529817719e-13
+0,"deduplicated","mrna",465,465,202,202,202,0.00518732720823601,85.8473955245124,TRUE,"returned_inverse",1.53628529817719e-13
+0,"initial_ridge","mrna",465,465,202,202,202,0.499671545407405,86.5850885884217,TRUE,"returned_inverse",2.98684388522918e-15
+0,"original","methylation",465,465,304,304,303,5.32479619142523e-17,205.149451311359,FALSE,"LU factorization of .gCMatrix failed: out of memory or near-singular",NA
+0,"deduplicated","methylation",465,465,303,303,303,0.000412589287964458,204.436540184474,TRUE,"returned_inverse",2.07534442989627e-12
+0,"initial_ridge","methylation",465,465,304,304,304,0.712667537321344,205.973262469463,TRUE,"returned_inverse",6.65247960509995e-15
+1,"original","mrna",477,299,206,206,206,0.00153337943266449,88.026487948043,TRUE,"returned_inverse",4.26452468486144e-13
+1,"deduplicated","mrna",477,299,206,206,206,0.00153337943266449,88.026487948043,TRUE,"returned_inverse",4.26452468486144e-13
+1,"initial_ridge","mrna",477,299,206,206,206,0.492378891628365,88.7749611730454,TRUE,"returned_inverse",3.08368010207656e-15
+1,"original","methylation",477,299,300,298,298,-7.50345615003719e-16,194.567255371919,FALSE,"LU factorization of .gCMatrix failed: out of memory or near-singular",NA
+1,"deduplicated","methylation",477,299,299,298,298,-7.21891058230069e-16,193.871402496709,FALSE,"returned_inverse",8.48453865389192
+1,"initial_ridge","methylation",477,299,300,298,300,0.686770116056317,195.365134130035,TRUE,"returned_inverse",5.23722618486029e-15
+7,"original","mrna",464,287,242,242,242,0.000471965832914522,114.023499783113,TRUE,"returned_inverse",2.10635802926717e-12
+7,"deduplicated","mrna",464,287,242,242,242,0.000471965832914522,114.023499783113,TRUE,"returned_inverse",2.10635802926717e-12
+7,"initial_ridge","mrna",464,287,242,242,242,0.49252944576152,114.820713894435,TRUE,"returned_inverse",3.20890126258727e-15
+7,"original","methylation",464,287,263,263,262,-3.81735796395312e-17,168.464377650728,FALSE,"LU factorization of .gCMatrix failed: out of memory or near-singular",NA
+7,"deduplicated","methylation",464,287,262,262,262,5.01589339248401e-05,167.767593134349,TRUE,"returned_inverse",1.77378966720911e-11
+7,"initial_ridge","methylation",464,287,263,263,263,0.654622120244989,169.241420006808,TRUE,"returned_inverse",5.05043233360507e-15
+7,"original","rppa",464,287,1,1,1,0.576384105704931,0.576384105704931,TRUE,"returned_inverse",0
+7,"deduplicated","rppa",464,287,1,1,1,0.576384105704931,0.576384105704931,TRUE,"returned_inverse",0
+7,"initial_ridge","rppa",464,287,1,1,1,1.15276821140986,1.15276821140986,TRUE,"returned_inverse",0
+72,"original","mrna",457,288,196,196,196,0.00138071475417389,79.8954641411783,TRUE,"returned_inverse",4.48038854995507e-13
+72,"deduplicated","mrna",457,288,196,196,196,0.00138071475417389,79.8954641411783,TRUE,"returned_inverse",4.48038854995507e-13
+72,"initial_ridge","mrna",457,288,196,196,196,0.492535159281175,80.6123135955468,TRUE,"returned_inverse",2.98706873053869e-15
+72,"original","methylation",457,288,308,287,287,-8.35478863747924e-15,200.555982512041,FALSE,"LU factorization of .gCMatrix failed: out of memory or near-singular",NA
+72,"deduplicated","methylation",457,288,307,287,287,-2.3839403610501e-15,199.919962933248,FALSE,"returned_inverse",583.254843604061
+72,"initial_ridge","methylation",457,288,308,287,308,0.653638826911219,201.360299882131,TRUE,"returned_inverse",5.30533633774939e-15
+72,"original","rppa",457,288,2,2,2,0.267799046338181,0.760048814900708,TRUE,"returned_inverse",1.11022302462516e-16
+72,"deduplicated","rppa",457,288,2,2,2,0.267799046338181,0.760048814900708,TRUE,"returned_inverse",1.11022302462516e-16
+72,"initial_ridge","rppa",457,288,2,2,2,0.779371721192798,1.27632400128498,TRUE,"returned_inverse",0

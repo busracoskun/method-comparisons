@@ -1,0 +1,9 @@
+numpy
+pandas
+joblib
+scikit-learn
+rpy2
+mofapy2
+cmfrec
+matplotlib
+scipy

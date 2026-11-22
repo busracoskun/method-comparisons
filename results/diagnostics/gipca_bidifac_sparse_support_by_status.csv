@@ -1,0 +1,8 @@
+status,minimum_distinct_observed_subjects_per_feature,bootstrap_count
+failed,0,1
+failed,1,45
+failed,2,175
+failed,3,307
+success,4,331
+success,5,129
+success,6,12

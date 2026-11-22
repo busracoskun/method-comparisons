@@ -1,0 +1,9 @@
+"dataset","model","style","imputation","n","source_n","excluded_n","factors","source","seed"
+"ADNI","mofa","NA",NA,889,891,2,3,"FullRuns/mofa/mofa_NA_0.rds",20261018
+"ADNI","mofa","MI_SF",1,889,891,2,3,"FullRuns/mofa/mofa_MI_SF_0_imp1.rds",20261018
+"ADNI","gpcca","NA",NA,889,891,2,3,"FullRuns/gpcca/gpcca_NA_0.rds",20261018
+"ADNI","tica","MI_SF",1,889,891,2,3,"FullRuns/tica/tica_MI_SF_0_imp1.rds",20261018
+"TCGA","mofa","NA",NA,841,841,0,3,"FullRuns_TCGA_python/mofa/mofa_NA_0.pkl",20261018
+"TCGA","mofa","MI_SF",1,841,841,0,3,"FullRuns_TCGA_python/mofa/mofa_MI_SF_0_imp1.pkl",20261018
+"TCGA","gpcca","NA",NA,841,841,0,3,"FullRuns_TCGA/gpcca/gpcca_NA_0.rds",20261018
+"TCGA","tica","MI_SF",1,841,841,0,3,"FullRuns_TCGA/tica/tica_MI_SF_0_imp1.rds",20261018

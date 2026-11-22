@@ -1,0 +1,4 @@
+method,dataset,style,failure_type,count,support,cause_status
+GIPCA,ADNI,NA,Nonfinite joint matrix / SVD rejection,527,Two targeted reproductions; all original failures have <4 distinct observed subjects for some feature,Strongly supported common rank-deficient loading-regression mechanism
+GIPCA,ADNI,NA,No observations for feature regression,1,Reconstructed all-missing feature and targeted reproduction,Confirmed in diagnostic sample
+BIDIFAC,TCGA,NA,LAPACK SVD computational nonconvergence,361,All original errors have DGESDD code 1; original failed matrix and stack absent,Error class confirmed; upstream trigger unresolved

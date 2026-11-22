@@ -1,0 +1,19 @@
+name: multiomics-benchmark
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - r-base=4.5
+  - pip
+  - numpy
+  - pandas
+  - matplotlib
+  - scipy
+  - scikit-learn
+  - joblib
+  - rpy2
+  - pip:
+      - mofapy2
+      - cmfrec
+# R model packages: Rscript --vanilla config/install.R
+# This is a setup specification, not a recovered historical lockfile.

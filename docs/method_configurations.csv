@@ -1,0 +1,21 @@
+method,language,direct_na_supported,source_references,configuration,external_dependency
+rgcca,R,True,code/methods/adni.R; code/methods/tcga.R,config/default.json; method-specific arguments in source references,documented R/Python package or in-project code
+gpcca,R,True,code/methods/adni.R; code/methods/tcga.R,config/default.json; method-specific arguments in source references,documented R/Python package or in-project code
+block_pls,R,True,code/methods/adni.R; code/methods/tcga.R,config/default.json; method-specific arguments in source references,documented R/Python package or in-project code
+gipca,R,True,code/methods/adni.R; code/methods/tcga.R,config/default.json; method-specific arguments in source references,script source; see config/external_sources.json
+bsf,R,True,code/methods/adni.R; code/methods/tcga.R,config/default.json; method-specific arguments in source references,documented R/Python package or in-project code
+nemo,R,True,code/methods/adni.R; code/methods/tcga.R,config/default.json; method-specific arguments in source references,documented R/Python package or in-project code
+bidifac,R,True,code/methods/adni.R; code/methods/tcga.R,config/default.json; method-specific arguments in source references,script source; see config/external_sources.json
+icluster,R,False,code/methods/adni.R:415; code/methods/tcga.R:309,config/default.json; method-specific arguments in source references,documented R/Python package or in-project code
+fabia,R,False,code/methods/adni.R; code/methods/tcga.R,config/default.json; method-specific arguments in source references,documented R/Python package or in-project code
+mcia,R,False,code/methods/adni.R; code/methods/tcga.R,config/default.json; method-specific arguments in source references,documented R/Python package or in-project code
+intnmf,R,False,code/methods/adni.R; code/methods/tcga.R,config/default.json; method-specific arguments in source references,documented R/Python package or in-project code
+gfa,R,False,code/methods/adni.R; code/methods/tcga.R,config/default.json; method-specific arguments in source references,documented R/Python package or in-project code
+sgcca,R,False,code/methods/adni.R; code/methods/tcga.R,config/default.json; method-specific arguments in source references,documented R/Python package or in-project code
+o2pls,R,False,code/methods/adni.R; code/methods/tcga.R,config/default.json; method-specific arguments in source references,documented R/Python package or in-project code
+cia,R,False,code/methods/adni.R; code/methods/tcga.R,config/default.json; method-specific arguments in source references,documented R/Python package or in-project code
+tica,R,False,code/methods/adni.R; code/methods/tcga.R,config/default.json; method-specific arguments in source references,documented R/Python package or in-project code
+slide,R,False,code/methods/adni.R; code/methods/tcga.R,config/default.json; method-specific arguments in source references,documented R/Python package or in-project code
+jive,R,False,code/methods/adni.R; code/methods/tcga.R,config/default.json; method-specific arguments in source references,documented R/Python package or in-project code
+mofa,Python,True,code/methods/python_methods.py:395; code/methods/python_methods_tcga.py,config/default.json; method-specific arguments in source references,documented R/Python package or in-project code
+cmf,Python,True,code/methods/python_methods.py:451; code/methods/python_methods_tcga.py,config/default.json; method-specific arguments in source references,documented R/Python package or in-project code

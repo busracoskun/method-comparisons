@@ -1,0 +1,10 @@
+{
+  "adni_input_dir": "data/adni",
+  "tcga_input_dir": "data/tcga",
+  "cache_input_dir": "data/cache",
+  "rscript": "Rscript",
+  "python": "python",
+  "r_home": null,
+  "r_library": null,
+  "library_paths": []
+}

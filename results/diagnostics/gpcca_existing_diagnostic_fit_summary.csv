@@ -1,0 +1,17 @@
+case,boot,status,mrna,methylation,rppa,termination,last_rmse,error
+cc_no_sis_deduplicated,0,success,324,323,112,default_early_stop_before_tol,0.0322232,
+cc_no_sis,0,failed,324,324,112,initial_covariance_inverse_failed,,LU factorization of .gCMatrix failed: out of memory or near-singular
+ccsf_add_rppa_deduplicated,0,success,202,303,112,default_early_stop_before_tol,0.02570427,
+ccsf_add_rppa,0,failed,202,304,112,initial_covariance_inverse_failed,,LU factorization of .gCMatrix failed: out of memory or near-singular
+ccsf_deduplicated_boot1,1,success,206,299,0,default_early_stop_before_tol,0.02118496,
+ccsf_deduplicated_boot72,72,success,196,307,2,default_early_stop_before_tol,0.1589666,
+ccsf_deduplicated_boot7,7,success,242,262,1,default_early_stop_before_tol,0.03796692,
+ccsf_deduplicated,0,success,202,303,0,default_early_stop_before_tol,0.03842543,
+ccsf_initial_ridge_diagnostic_boot1,1,success,206,300,0,default_early_stop_before_tol,0.02460435,
+ccsf_initial_ridge_diagnostic_boot72,72,success,196,308,2,default_early_stop_before_tol,0.02219151,
+ccsf_initial_ridge_diagnostic_boot7,7,success,242,263,1,default_early_stop_before_tol,0.02932567,
+ccsf_initial_ridge_diagnostic,0,success,202,304,0,default_early_stop_before_tol,0.03081215,
+ccsf_original_boot1,1,failed,206,300,0,initial_covariance_inverse_failed,,LU factorization of .gCMatrix failed: out of memory or near-singular
+ccsf_original_boot72,72,failed,196,308,2,initial_covariance_inverse_failed,,LU factorization of .gCMatrix failed: out of memory or near-singular
+ccsf_original_boot7,7,failed,242,263,1,initial_covariance_inverse_failed,,LU factorization of .gCMatrix failed: out of memory or near-singular
+ccsf_original,0,failed,202,304,0,initial_covariance_inverse_failed,,LU factorization of .gCMatrix failed: out of memory or near-singular

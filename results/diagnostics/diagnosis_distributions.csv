@@ -1,0 +1,11 @@
+"dataset","cohort","diagnosis","n","cohort_n","percent"
+"adni","full","CN",289,889,32.5084364454443
+"adni","full","AD",139,889,15.6355455568054
+"adni","full","MCI",461,889,51.8560179977503
+"adni","complete_cases","CN",135,450,30
+"adni","complete_cases","AD",38,450,8.44444444444444
+"adni","complete_cases","MCI",277,450,61.5555555555556
+"tcga","full","GBM",330,841,39.2390011890606
+"tcga","full","LGG",511,841,60.7609988109394
+"tcga","complete_cases","GBM",40,465,8.60215053763441
+"tcga","complete_cases","LGG",425,465,91.3978494623656

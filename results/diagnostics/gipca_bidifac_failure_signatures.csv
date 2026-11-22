@@ -1,0 +1,6 @@
+dataset,method,status,count,error_message
+adni,gipca,success,472,
+adni,gipca,failed,527,infinite or missing values in 'x'
+adni,gipca,failed,1,error in evaluating the argument 'args' in selecting a method for function 'do.call': 0 (non-NA) cases
+tcga,bidifac,success,639,
+tcga,bidifac,failed,361,error code 1 from Lapack routine 'dgesdd'

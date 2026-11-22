@@ -1,0 +1,23 @@
+{
+  "gipca": {
+    "reconstructed_samples_tested": 3,
+    "svd_error_reproductions": 2,
+    "no_cases_error_reproductions": 1,
+    "explicit_aliased_regression_trace": {
+      "regression_rank": 3,
+      "coefficients": 4,
+      "observed_rows": 6,
+      "iteration": 2
+    },
+    "historical_initialization_replayed": false
+  },
+  "bidifac": {
+    "reconstructed_samples_tested": 1,
+    "wall_time_limit_seconds": 180,
+    "exit_code": 124,
+    "outcome": "inconclusive_timeout",
+    "historical_initialization_replayed": false
+  },
+  "full_bootstrap_fits_rerun": false,
+  "original_files_modified": false
+}

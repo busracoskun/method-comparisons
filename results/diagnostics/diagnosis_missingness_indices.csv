@@ -1,0 +1,7 @@
+"dataset","scope","n","diagnosis_categories","missingness_categories","pairs","same_both","different_both","RI","ARI"
+"adni","clinically_labelled_full",889,3,3,394716,78767,126658,0.520437479098896,0.0331366073837043
+"adni","clinically_labelled_complete_cases",450,3,1,101025,47974,0,0.474872556297946,0
+"adni","historical_saved_all_unknown_separate",891,4,3,396495,78768,127594,0.52046557964161,0.0330445956313203
+"tcga","clinically_labelled_full",841,2,7,353220,103581,150082,0.718144499178982,0.444038294523677
+"tcga","clinically_labelled_complete_cases",465,2,1,107880,90880,0,0.842417500926956,0
+"tcga","historical_saved_all_unknown_separate",841,2,7,353220,103581,150082,0.718144499178982,0.444038294523677
