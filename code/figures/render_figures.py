@@ -1,4 +1,5 @@
 """Render manuscript figures from saved results and optional authorized UMAP coordinates."""
+
 import argparse
 from functools import partial
 from pathlib import Path
@@ -8,40 +9,34 @@ import embeddings
 from missingness_mechanisms import render_mechanisms
 from observed_figures import clinical_data, clinical_figure, clinical_limits
 
+# Input folders
 ROOT = Path(__file__).resolve().parents[2]
 OBSERVED = ROOT / "results/observed_data"
 RECOVERY = ROOT / "results/semi_synthetic"
 DIAGNOSTICS = ROOT / "results/diagnostics"
 
+# Output file names of the main and supplementary figures
 MAIN = {
-    "1": "observed_modality_missingness",
-    "2": "adni_clinical_alignment",
-    "3": "tcga_clinical_alignment",
-    "4": "observed_umap",
-    "5": "adni_semi_synthetic_recovery",
-    "6": "tcga_semi_synthetic_recovery",
-    "7": "semi_synthetic_umap",
-    "8": "observed_runtime",
+    "1": "observed_modality_missingness", "2": "adni_clinical_alignment",
+    "3": "tcga_clinical_alignment", "4": "observed_umap", "5": "adni_semi_synthetic_recovery",
+    "6": "tcga_semi_synthetic_recovery", "7": "semi_synthetic_umap", "8": "observed_runtime"
 }
 SUPPLEMENTARY = {
-    "s1": "adni_recovery_umap",
-    "s2": "tcga_recovery_umap",
-    "s3": "observed_umap",
-    "s4": "feature_recovery",
-    "s5": "adjusted_rand_index",
-    "s6": "fitting_reliability",
-    "s7": "patient_feature_recovery",
-    "s8": "intnmf_sensitivity",
-    "s9": "semi_synthetic_runtime",
-    "s10": "missingness_mechanisms",
+    "s1": "adni_recovery_umap", "s2": "tcga_recovery_umap", "s3": "observed_umap",
+    "s4": "feature_recovery", "s5": "adjusted_rand_index", "s6": "fitting_reliability",
+    "s7": "patient_feature_recovery", "s8": "intnmf_sensitivity", "s9": "semi_synthetic_runtime",
+    "s10": "missingness_mechanisms"
 }
+
+# Figures that need the private coordinate archive
 PRIVATE = {
-    "4": embeddings.observed,
-    "7": embeddings.recovery,
+    "4": embeddings.observed, "7": embeddings.recovery,
     "s1": partial(embeddings.recovery, dataset="ADNI"),
     "s2": partial(embeddings.recovery, dataset="TCGA"),
-    "s3": partial(embeddings.observed, supplemental=True),
+    "s3": partial(embeddings.observed, supplemental=True)
 }
+
+# Figures drawn directly from one aggregate table
 AGGREGATE = {
     "s4": (RECOVERY / "feature_recovery_plotted_values.csv", aggregate.feature),
     "s6": (DIAGNOSTICS / "fitting_reliability_plotted_values.csv", aggregate.reliability),
@@ -56,7 +51,11 @@ def render(number, output, archive):
     if number in MAIN:
         target = output / "main" / f"figure_{int(number):02}_{MAIN[number]}"
     else:
-        target = output / "supplementary" / f"supp_figure_{int(number[1:]):02}_{SUPPLEMENTARY[number]}"
+        target = (
+            output / "supplementary" / f"supp_figure_{int(number[1:]):02}_{SUPPLEMENTARY[number]}"
+        )
+
+    # Dispatch to the plotting function for this figure
     if number in PRIVATE:
         PRIVATE[number](target, archive)
     elif number in AGGREGATE:
@@ -68,7 +67,10 @@ def render(number, output, archive):
     elif number in {"2", "3"}:
         data, reference = clinical_data()
         cohort = "ADNI" if number == "2" else "TCGA"
-        clinical_figure(data[data.dataset.eq(cohort)], reference, clinical_limits(data, reference), cohort, target)
+        clinical_figure(
+            data[data.dataset.eq(cohort)], reference, clinical_limits(data, reference), cohort,
+            target
+        )
     elif number in {"5", "6"}:
         data = aggregate.read(RECOVERY / "recovery_full_metric_summary.csv")
         aggregate.recovery(data, "ADNI" if number == "5" else "TCGA", target)
@@ -77,7 +79,9 @@ def render(number, output, archive):
         reliability = aggregate.read(DIAGNOSTICS / "fitting_reliability_plotted_values.csv")
         data.dataset = data.dataset.str.upper()
         reliability.dataset = reliability.dataset.str.upper()
-        aggregate.clinical(data, None, target, reliability=reliability.set_index(["dataset", "model", "style"]))
+        aggregate.clinical(
+            data, None, target, reliability=reliability.set_index(["dataset", "model", "style"])
+        )
     elif number == "s10":
         render_mechanisms(RECOVERY, target)
 
@@ -85,17 +89,31 @@ def render(number, output, archive):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     all_figures = [*MAIN, *SUPPLEMENTARY]
-    parser.add_argument("--figure", type=str.lower, choices=all_figures, action="append",
-                        help="Select a figure by number. Repeat for several figures.")
+    parser.add_argument(
+        "--figure", type=str.lower, choices=all_figures, action="append",
+        help="Select a figure by number. Repeat for several figures."
+    )
     parser.add_argument("--output", type=Path, default=ROOT / "build/figures")
-    parser.add_argument("--coordinate-archive", type=Path, help="Root of the authorized historical coordinate archive.")
+    parser.add_argument(
+        "--coordinate-archive", type=Path,
+        help="Root of the authorized historical coordinate archive."
+    )
+
+    # Check the arguments and output location, then render
     args = parser.parse_args()
-    if args.figure and not args.coordinate_archive and any(number in PRIVATE for number in args.figure):
+    if (
+        args.figure
+        and not args.coordinate_archive
+        and any(number in PRIVATE for number in args.figure)
+    ):
         parser.error("UMAP figures require --coordinate-archive.")
     output = args.output.resolve()
     if output.is_relative_to(ROOT / "figures") or output.is_relative_to(ROOT / "results"):
         parser.error("Choose an output directory outside the archived figures and results.")
-    selected = args.figure or [n for n in all_figures if args.coordinate_archive or n not in PRIVATE]
+
+    selected = args.figure or [
+        n for n in all_figures if args.coordinate_archive or n not in PRIVATE
+    ]
     for number in selected:
         render(number, output, args.coordinate_archive)
     print(f"Rendered {len(selected)} figures in {output}")

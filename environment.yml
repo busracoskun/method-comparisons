@@ -16,4 +16,3 @@ dependencies:
       - mofapy2
       - cmfrec
 # R model packages: Rscript --vanilla config/install.R
-# This is a setup specification, not a recovered historical lockfile.

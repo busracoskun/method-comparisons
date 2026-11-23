@@ -43,6 +43,26 @@ The script `code/figures/embeddings.py` documents the expected files, including:
 
 Keep this archive outside the public repository. The final figures are supplied in `figures/`, subject to redistribution clearance.
 
+### Historical patient-visualization helpers
+
+`select_semisynthetic_examples.py` reproduces the historical tICA repetition-selection
+calculation from the included `results/semi_synthetic/adni_semi_synthetic_results.csv` and
+`tcga_semi_synthetic_results.csv` files. It writes its generated combined selection under
+`build/patient_visualizations/` and does not modify the published selection records.
+
+`export_python_scores.py` requires two private patient-level fitted models; the aggregate
+metrics in `results/` are not sufficient. Pass a trusted fit directory containing
+`mofa/mofa_NA_0.pkl` and `mofa/mofa_MI_SF_0_imp1.pkl`:
+
+```bash
+python code/figures/patient_visualizations/export_python_scores.py \
+  --fits-dir /path/to/authorized/fits_python
+```
+
+The exported patient IDs and latent scores are written to
+`private_outputs/patient_visualizations/python_scores/` by default. The required fitted models
+are not included in this repository; only unpickle artifacts from a trusted source.
+
 ## Scope
 
 The repository preserves the final reported results and the main scripts used to obtain them. It excludes temporary cluster recovery scripts, obsolete outputs, private intermediate objects, and restricted datasets. Some historic environment and random-initialization states cannot be reconstructed exactly. Reproducing a model run can therefore differ from reproducing a figure using its saved results.

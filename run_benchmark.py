@@ -7,7 +7,6 @@ import json
 import os
 import subprocess
 from pathlib import Path
-
 from project_paths import (
     authorized_input_path,
     check_output_tree,
@@ -17,25 +16,31 @@ from project_paths import (
 )
 
 ROOT = Path(__file__).resolve().parent
+
+# Methods implemented in R; mofa and cmf run in Python
 R_METHODS = {
-    "rgcca", "gpcca", "block_pls", "gipca", "bsf", "nemo",
-    "bidifac", "icluster", "fabia", "mcia", "intnmf", "gfa",
-    "sgcca", "o2pls", "cia", "tica", "slide", "jive",
+    "rgcca", "gpcca", "block_pls", "gipca", "bsf", "nemo", "bidifac", "icluster", "fabia", "mcia",
+    "intnmf", "gfa", "sgcca", "o2pls", "cia", "tica", "slide", "jive"
 }
 
 
 def parse_args():
+    # Pipeline, configuration, and run options
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
         "pipeline",
         choices=["adni-observed", "tcga-observed", "adni-semisynthetic", "tcga-semisynthetic"],
     )
     parser.add_argument("--config", type=Path, help="Optional configuration overrides")
-    parser.add_argument("--methods", help="Comma-separated names; order affects original RNG streams")
+    parser.add_argument(
+        "--methods", help="Comma-separated names; order affects original RNG streams"
+    )
     parser.add_argument("--engine", choices=["all", "r", "python"], default="all")
-    parser.add_argument("--mode", choices=[
-        "bootstrap", "full", "prepare", "rescore", "ground_truth", "run", "combine",
-    ])
+    parser.add_argument(
+        "--mode",
+        choices=["bootstrap", "full", "prepare", "rescore", "ground_truth", "run", "combine"],
+    )
+
     parser.add_argument("--count", type=int)
     parser.add_argument("--start", type=int)
     parser.add_argument("--task", type=int)
@@ -43,20 +48,24 @@ def parse_args():
     parser.add_argument("--check", action="store_true", help="Check inputs without fitting")
     parser.add_argument(
         "--tcga-intnmf-repair", action="store_true",
-        help="Use the documented TCGA-only intNMF repair seed index",
+        help="Use the documented TCGA-only intNMF repair seed index"
     )
     return parser, parser.parse_args()
 
 
 def select_methods(parser, args, config, dataset, semi):
+    """Validate the method list and split it into R and Python methods."""
     key = "semisynthetic_methods" if semi else "observed_methods"
+
     methods = args.methods.split(",") if args.methods else config[key]
 
+    # The repair profile only applies to TCGA intNMF
     if args.tcga_intnmf_repair and (dataset != "tcga" or not semi or methods != ["intnmf"]):
         parser.error("Repair profile requires tcga-semisynthetic --methods intnmf")
-    if not methods or len(set(methods)) != len(methods) or set(methods) - R_METHODS - {"mofa", "cmf"}:
+    if (not methods or len(set(methods)) != len(methods) or set(methods) - R_METHODS - {"mofa", "cmf"}):
         parser.error("Unknown or duplicate methods")
 
+    # Split by implementation language and apply --engine
     r_methods = [name for name in methods if name in R_METHODS]
     python_methods = [name for name in methods if name in {"mofa", "cmf"}]
     if args.engine == "r":
@@ -67,50 +76,46 @@ def select_methods(parser, args, config, dataset, semi):
 
 
 def prepare_environment(args, config, dataset, mode, r_methods, python_methods, count, start):
+    """Resolve paths and build the environment variables read by the R and Python scripts."""
     output = local_path(args.output or config["output_dir"])
     work = check_output_tree(output / dataset)
     adni_input = authorized_input_path(config["adni_input_dir"])
     tcga_input = authorized_input_path(config["tcga_input_dir"])
     cache_input = (
-        authorized_input_path(config["cache_input_dir"])
-        if config.get("cache_input_dir") else None
+        authorized_input_path(config["cache_input_dir"]) if config.get("cache_input_dir") else None
     )
 
+    # Start from the current environment without legacy path variables
     env = os.environ.copy()
-    # Remove legacy paths that might point to a different run or dataset.
+    # Remove legacy paths that might point to a different run or dataset
     for key in (
-        "BENCH_DIR", "DATA_DIR", "RESULTS_FULL_DIR", "FULL_MODEL_DIR",
-        "PYTHON_METHODS_FILE", "FINAL_R_FILE", "FINAL_TCGA_FILE", "PREPROCESSED_DIR",
+        "BENCH_DIR", "DATA_DIR", "RESULTS_FULL_DIR", "FULL_MODEL_DIR", "PYTHON_METHODS_FILE",
+        "FINAL_R_FILE", "FINAL_TCGA_FILE", "PREPROCESSED_DIR"
     ):
         env.pop(key, None)
 
-    env.update({
-        "CLEAN_ROOT": str(ROOT),
-        "BENCH_WORK_DIR": str(work),
-        "BENCH_DATASET": dataset,
-        "ADNI_INPUT_DIR": str(adni_input),
-        "TCGA_INPUT_DIR": str(tcga_input),
-        "B_BOOT": str(count),
-        "BOOT_START": str(start),
-        "BOOT_CORES": str(config["cores"]),
-        "LSB_DJOB_NUMPROC": str(config["cores"]),
-        "SAVE_BOOT_MODELS": "1" if config["save_models"] else "0",
-        "OBSERVED_MODE": mode,
-        "R_METHODS": ",".join(r_methods),
-        "PY_METHODS": ",".join(python_methods),
-        "TCGA_INTNMF_REPAIR": "1" if args.tcga_intnmf_repair else "0",
-        "SEMISYNTH_METHODS": ",".join(r_methods or ["icluster"]),
-        "SEMISYNTH_MODE": mode,
-        "SEMISYNTH_TASK_ID": str(args.task or 0),
-        "PY_SEMISYNTH_MODE": mode,
-        "PY_SEMISYNTH_TASK_ID": str(args.task or 0),
-        "SEMISYNTH_OUT_DIR": str(work / "semisynthetic_r"),
-        "PY_SEMISYNTH_OUT_DIR": str(work / "semisynthetic_python"),
-        "PROJECT_ROOT": str(ROOT),
-        "TMPDIR": str(ROOT / "private_outputs/tmp"),
-        "PYTHONPATH": os.pathsep.join([str(ROOT), str(ROOT / "code/methods")]),
-        "PYTHONDONTWRITEBYTECODE": "1",
-    })
+    # Variables read by the R and Python scripts
+    env.update(
+        {
+            "CLEAN_ROOT": str(ROOT), "BENCH_WORK_DIR": str(work), "BENCH_DATASET": dataset,
+            "ADNI_INPUT_DIR": str(adni_input), "TCGA_INPUT_DIR": str(tcga_input),
+            "B_BOOT": str(count), "BOOT_START": str(start), "BOOT_CORES": str(config["cores"]),
+            "LSB_DJOB_NUMPROC": str(config["cores"]),
+            "SAVE_BOOT_MODELS": "1" if config["save_models"] else "0", "OBSERVED_MODE": mode,
+            "R_METHODS": ",".join(r_methods), "PY_METHODS": ",".join(python_methods),
+            "TCGA_INTNMF_REPAIR": "1" if args.tcga_intnmf_repair else "0",
+            "SEMISYNTH_METHODS": ",".join(r_methods or ["icluster"]), "SEMISYNTH_MODE": mode,
+            "SEMISYNTH_TASK_ID": str(args.task or 0), "PY_SEMISYNTH_MODE": mode,
+            "PY_SEMISYNTH_TASK_ID": str(args.task or 0),
+            "SEMISYNTH_OUT_DIR": str(work / "semisynthetic_r"),
+            "PY_SEMISYNTH_OUT_DIR": str(work / "semisynthetic_python"), "PROJECT_ROOT": str(ROOT),
+            "TMPDIR": str(ROOT / "private_outputs/tmp"),
+            "PYTHONPATH": os.pathsep.join([str(ROOT), str(ROOT / "code/methods")]),
+            "PYTHONDONTWRITEBYTECODE": "1"
+        }
+    )
+
+    # Optional R installation, library, and scratch locations
     if config.get("r_home"):
         env["R_HOME"] = config["r_home"]
     if config.get("r_library"):
@@ -130,8 +135,10 @@ def prepare_environment(args, config, dataset, mode, r_methods, python_methods, 
 
 
 def build_commands(dataset, mode, methods_r, methods_python, args, config, count, start):
+    """List the commands for one run; a (command, overrides) tuple adds environment overrides."""
     r = [config["rscript"], "--vanilla"]
     python = [config["python"]]
+
     commands = []
     semi = args.pipeline.endswith("semisynthetic")
 
@@ -144,21 +151,27 @@ def build_commands(dataset, mode, methods_r, methods_python, args, config, count
             commands.append(python + [str(ROOT / "code/semi_synthetic/run_mofa_cmf_recovery.py")])
     else:
         if methods_r or mode == "prepare" or (dataset == "adni" and methods_python):
-            # ADNI Python fitting uses variables and imputations prepared by R.
+            # ADNI Python fitting uses variables and imputations prepared by R
             override = {"OBSERVED_MODE": "prepare"} if not methods_r or mode == "prepare" else {}
-            commands.append((r + [str(ROOT / "code/observed_data/run_observed_benchmark.R")], override))
+            commands.append(
+                (r + [str(ROOT / "code/observed_data/run_observed_benchmark.R")], override)
+            )
 
         if methods_python and mode != "prepare":
             if dataset == "adni" and mode == "bootstrap":
                 for boot in range(start, start + count):
-                    commands.append((
-                        python + [str(ROOT / "code/observed_data/run_adni_mofa_cmf_bootstrap.py")],
-                        {"BOOT_ID": str(boot)},
-                    ))
+                    commands.append(
+                        (
+                            python
+                            + [str(ROOT / "code/observed_data/run_adni_mofa_cmf_bootstrap.py")],
+                            {"BOOT_ID": str(boot)},
+                        )
+                    )
             else:
                 script = (
                     "code/observed_data/run_adni_mofa_cmf_full_cohort.py"
-                    if dataset == "adni" else "code/observed_data/run_tcga_mofa_cmf.py"
+                    if dataset == "adni"
+                    else "code/observed_data/run_tcga_mofa_cmf.py"
                 )
                 commands.append(python + [str(ROOT / script)])
 
@@ -170,8 +183,8 @@ def build_commands(dataset, mode, methods_r, methods_python, args, config, count
 def ensure_inputs(parser, dataset, env):
     names = (
         ["meta.csv", "rnaseq.csv", "clin.csv"]
-        if dataset == "adni" else
-        ["irsem_fs.csv", "imeth_fs.csv", "irppa_fs.csv", "clin_common.csv"]
+        if dataset == "adni"
+        else ["irsem_fs.csv", "imeth_fs.csv", "irppa_fs.csv", "clin_common.csv"]
     )
     folder = Path(env["ADNI_INPUT_DIR" if dataset == "adni" else "TCGA_INPUT_DIR"])
     paths = [input_file(folder, name) if dataset == "adni" else folder / name for name in names]
@@ -182,18 +195,24 @@ def ensure_inputs(parser, dataset, env):
 
 def main():
     parser, args = parse_args()
+
+    # Parse and validate the requested run
     config = load_config(args.config)
     dataset, analysis = args.pipeline.split("-", 1)
     semi = analysis == "semisynthetic"
     mode = args.mode or ("run" if semi else "bootstrap")
 
-    allowed = ["ground_truth", "run", "combine"] if semi else ["bootstrap", "full", "prepare", "rescore"]
+    allowed = (
+        ["ground_truth", "run", "combine"] if semi else ["bootstrap", "full", "prepare", "rescore"]
+    )
     if mode not in allowed:
         parser.error("Mode does not apply to this pipeline")
     if semi and mode == "run" and not (args.task and 1 <= args.task <= 600):
         parser.error("--task must be 1..600")
     if config.get("repetitions", 100) != 100:
-        parser.error("The preserved design requires 100 repetitions; use task subsets for smaller runs")
+        parser.error(
+            "The preserved design requires 100 repetitions; use task subsets for smaller runs"
+        )
     if mode == "rescore" and dataset != "adni":
         parser.error("The historical saved-fit rescoring correction is ADNI-specific")
 
@@ -210,6 +229,7 @@ def main():
     except ValueError as error:
         parser.error(str(error))
 
+    # Print the commands and check the inputs
     commands = build_commands(dataset, mode, methods_r, methods_python, args, config, count, start)
     for entry in commands:
         command = entry[0] if isinstance(entry, tuple) else entry
@@ -219,22 +239,30 @@ def main():
         print("Configuration and input files OK. No fitting performed.")
         return
 
+    # Create output folders and record the configuration
     work.mkdir(parents=True, exist_ok=True)
     for key in ("TMPDIR", "JOBLIB_TEMP_FOLDER", "XDG_CACHE_HOME", "MPLCONFIGDIR"):
         local_path(env[key]).mkdir(parents=True, exist_ok=True)
     logs = work / "logs"
     logs.mkdir(exist_ok=True)
     stamp = datetime.datetime.now(datetime.timezone.utc).strftime("%Y%m%dT%H%M%S%fZ")
-    record = {"arguments": {**vars(args), "config": str(args.config), "output": str(args.output or config["output_dir"])},
-              "config": config, "methods": methods}
+    record = {
+        "arguments": {
+            **vars(args),
+            "config": str(args.config),
+            "output": str(args.output or config["output_dir"]),
+        },
+        "config": config,
+        "methods": methods,
+    }
     (logs / f"{stamp}_config.json").write_text(json.dumps(record, default=str, indent=2))
 
+    # Run each command, logging its output
     for i, entry in enumerate(commands):
         command, overrides = entry if isinstance(entry, tuple) else (entry, {})
         with (logs / f"{stamp}_{i}.log").open("w") as log:
             result = subprocess.run(
-                command, cwd=work, env={**env, **overrides},
-                stdout=log, stderr=subprocess.STDOUT,
+                command, cwd=work, env={**env, **overrides}, stdout=log, stderr=subprocess.STDOUT
             )
         if result.returncode:
             raise SystemExit(f"Command failed ({result.returncode}). See {log.name}")

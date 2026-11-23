@@ -17,5 +17,5 @@ cia,R,False,code/methods/adni.R; code/methods/tcga.R,config/default.json; method
 tica,R,False,code/methods/adni.R; code/methods/tcga.R,config/default.json; method-specific arguments in source references,documented R/Python package or in-project code
 slide,R,False,code/methods/adni.R; code/methods/tcga.R,config/default.json; method-specific arguments in source references,documented R/Python package or in-project code
 jive,R,False,code/methods/adni.R; code/methods/tcga.R,config/default.json; method-specific arguments in source references,documented R/Python package or in-project code
-mofa,Python,True,code/methods/python_methods.py:395; code/methods/python_methods_tcga.py,config/default.json; method-specific arguments in source references,documented R/Python package or in-project code
-cmf,Python,True,code/methods/python_methods.py:451; code/methods/python_methods_tcga.py,config/default.json; method-specific arguments in source references,documented R/Python package or in-project code
+mofa,Python,True,code/methods/mofa_cmf.py (fit_mofa); code/methods/mofa_cmf_tcga.py,config/default.json; method-specific arguments in source references,documented R/Python package or in-project code
+cmf,Python,True,code/methods/mofa_cmf.py (fit_cmf); code/methods/mofa_cmf_tcga.py,config/default.json; method-specific arguments in source references,documented R/Python package or in-project code
